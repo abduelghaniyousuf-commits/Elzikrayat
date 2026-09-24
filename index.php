@@ -1,6 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
 
 spl_autoload_register(function (string $className) {
 
@@ -71,27 +70,42 @@ Router::get('/user/{id}', function ($matches) {
         // Router::redirect("/login", 302);
         // user not found page / 404
 
-        Router::redirect("/login", 200);
+        Router::redirect("/login");
         // die();
     }
 });
 // registeration
+// GET /register
+// views SignIn view that contains SignIn form
 Router::get("/register", function () {
     $sController = new StudentController();
     $sController->signUpView();
 });
-Router::post("/register", function () use ($userId) {
+//  Post /register
+// takes user input from payload 
+// sanitizes and validates user input
+// returns the result os sign up operation
+// redirects user to login page in successful sign up
+// continuing tomorrow inshAllah
+Router::post("/register", function () {
     // echo json_encode($_POST);
     $stdAuthenticator = new AuthenticationController;
-    $signedUser = $stdAuthenticator->signUp((object)$_POST);
+    // the result of sign up operation
+    // the result is object contains:
+        //1- student object contains the data inserted before + a message shows:
+            // a- success if data was valid and inserted to data base
+            // b- database error if any DB error happens
+            // c- or validation errors 
+        // 2- status code explains the status of insertion operation
+    $resut = $stdAuthenticator->signUp((object)$_POST);
 
     // $userId = $signedUser->id;
     // echo $userId;
-    Router::redirect("/login", 201);
+    Router::redirect("/login");
 });
 
-// login routes
-
+// Get /login 
+// views the login view that contains login form
 Router::get("/login", function () {
     // echo "triggered";
     // die();
@@ -99,35 +113,53 @@ Router::get("/login", function () {
     $sController->loginView();
 });
 
+
+// post /login 
+// takes user email &password
+// finds user with the specific email
+// brings the hashed password with the user input password
+// if matches ,changes the state of user to login
+// redirects user to /user/idOfTheUser
+// if not match ,redirects user for the login page to try again
 Router::post("/login", function () {
     $authController = new AuthenticationController;
     $std = $authController->logIn((object)$_POST);
+    // echo json_encode($std);
+    // die();
 
     if (isset($std)) {
-        $userId = $std->id;
-        Router::redirect("/user/" . $std->id . "", 201);
+        // $userId = $std->id;
+        Router::redirect("/user/" . $std->id . "");
     } else {
-        Router::redirect("/login", 200);
+        Router::redirect("/login");
     }
 });
 
+
+// GET /logout/UserId
+// takes user id (from the url)and set it satatus isLogin = false
+// redirects user to /login page
+// if any error happens and the staus of user isLogin = true redirects user to /user/{userId}
 Router::get("/logout/{id}", function ($matches) {
 
     $userId = $matches;
     $stdAuthenticator = new AuthenticationController;
 
-    $stdAuthenticator->logOut($userId);
+    if ($stdAuthenticator->logOut($userId)) {
+        Router::redirect("/login");
+    } else {
+        Router::redirect("user/" . $userId);
+    }
     // $sModel = new StudentModel;
     // echo $sModel->find($userId)->first_name;
     // echo $sModel->find($userId)->isLogin;
 
     // die();
 
-    Router::redirect("/login", 200);
 });
 
 
 
 
-
+// url dispatcher engine
 Router::dispatch($origin);

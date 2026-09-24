@@ -16,18 +16,18 @@ class AuthenticationController
 
   // functions
 
-  // signIn
-  // sign in a user with required name , password , and email 
-  // sanitize encoming data & and validate it using validator validate functions 
-  // encoming data include fname , lname ,password ,email 
-  // if input is valid , call the student model , and trigger insert function
-  // insert function check whether the user is signed before 
+  // sign Up
+  // signs up a user with required name , password , and email 
+  // sanitizes encoming data & and validates it using validator validate functions 
+  // encoming data includes fname , lname ,password ,email 
+  // tests if input is valid , calls the student model , and triggers insert function
+  // insert function checks whether the user is signed before 
   // if not signed before
-  // sign the new student
-  // redirect to login page
-  // if successed return 201 insertion completed
+  // signs the new student
+    // redirects to login page
+    // if successed return 201 insertion completed
   // if signed before return message user is signed 
-  // redirect user to login page
+  // redirects user to login page
 
   function signUp($data): ?object
   {
@@ -70,7 +70,7 @@ class AuthenticationController
   {
 
     if (!isset($data)) {
-      echo "no data in auth/login";
+      // echo "no data in auth/login";
       return null;
     }
     $std = new stdClass;
@@ -87,11 +87,13 @@ class AuthenticationController
       $hash = $std->password ?? "";
       $isRegistered  = $validator->verifyHash($data->password, $hash);
       if ($isRegistered) {
-        $this->updateUserLoginState("login", $std->id);
-        return $std;
+        if ($this->updateUserLoginState("login", $std->id)) {
+          return $std;
+        }
       }
     }
-    return $std = null;
+    $std = null;
+    return $std;
   }
 
   // currentState
@@ -113,7 +115,7 @@ class AuthenticationController
 
   // update user login State 
 
-  function updateUserLoginState(string $state, $id)
+  function updateUserLoginState(string $state, $id): bool
   {
     if (isset($state) && isset($id)) {
 
@@ -122,33 +124,35 @@ class AuthenticationController
       switch ($state) {
         case "login":
           //
-          $sModel->updateStateLogin($id);
-          break;
+          return $sModel->updateStateLogin($id);
+
         case "logout":
-          $sModel->updateStateLogout($id);
+          return $sModel->updateStateLogout($id);
           //
-          break;
+
         default:
-          break;
+          return false;
       }
     } else {
-      return;
+      return false;
     }
   }
 
 
   // log out
 
-  function logOut($id)
+  function logOut($id): bool
   {
     if (!isset($id)) {
-      return;
+      return false;
     }
     $sModel = new StudentModel;
     $std = $sModel->find($id);
     if ($std) {
       // update 
-      $this->updateUserLoginState("logout", $id);
+      return  $this->updateUserLoginState("logout", $id);
+    } else {
+      return false;
     }
   }
 

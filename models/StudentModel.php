@@ -42,15 +42,15 @@ class StudentModel extends Model
             $sql = "select * from " . static::$table . " where email = '" . $email . "'";
             $stmt = $connection->query($sql);
             $data =  $stmt->fetch(PDO::FETCH_OBJ);
-            echo json_encode($data);
-            echo "<br>";
-            echo "from here now";
-            echo "<br>";
+            // echo json_encode($data);
+            // echo "<br>";
+            // echo "from here now";
+            // echo "<br>";
 
             if ($data) {
                 $student = $data;
             }
-            echo json_encode($student);
+            // echo json_encode($student);
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
@@ -62,7 +62,7 @@ class StudentModel extends Model
     function insert(object $studentP): bool
     {
         // echo json_encode($studentP);
-        echo "<br>";
+        // echo "<br>";
 
         $isInserted = false;
         $student = $this->findByEmail($studentP->email);
@@ -78,7 +78,7 @@ class StudentModel extends Model
             $stmt->bindValue(":password", $studentP->password, PDO::PARAM_STR);
             $stmt->bindValue(":email", $studentP->email, PDO::PARAM_STR);
             $isInserted = $stmt->execute();
-            echo "<br>";
+            // echo "<br>";
         }
 
         return $isInserted;
@@ -142,28 +142,40 @@ class StudentModel extends Model
     }
 
 
-    function updateStateLogin($id)
+    function updateStateLogin($id): bool
     {
         try {
             $connection = static::getConnection();
 
             $sql = "update student set isLogin = true where id = " . $id;
             $stmt = $connection->query($sql);
-            echo json_encode($stmt);
+            if ($stmt) {
+                return true;
+            } else {
+                return false;
+            }
+            // echo json_encode($stmt);
         } catch (PDOException $e) {
             echo $e->getMessage();
+            return false;
         }
     }
 
-    function updateStateLogout($id)
+    function updateStateLogout($id): bool
     {
         try {
             $connection = static::getConnection();
 
             $sql = "update student set isLogin = false where id = " . $id;
             $stmt = $connection->query($sql);
+            if ($stmt) {
+                return true;
+            } else {
+                return false;
+            }
         } catch (PDOException $e) {
             echo $e->getMessage();
+            return false;
         }
     }
 }

@@ -14,9 +14,11 @@ class Router
     static::$routes['POST'][$path] = $handler;
   }
 
-  static function redirect(string $route, int $code): void
+  static function redirect(string $route, int $code = 0): void
   {
-    http_response_code($code);
+    if (isset($code)) {
+      http_response_code($code);
+    }
     header("location: " . $route);
   }
 
@@ -35,8 +37,9 @@ class Router
 
       if (!empty(static::matcher($path, $route))) {
         $matches =  static::matcher($path, $route);
-        array_shift($matches);
         // echo json_encode($matches);
+
+        array_shift($matches);
 
         call_user_func($handler, $matches[0] ?? "");
         break;
@@ -67,7 +70,8 @@ class Router
           static::postDispatcher($path);
           break;
         default:
-          echo '<h1 style="text-align:center;">404 Page not found </h1>';
+          require_once "./views/Forbidden.php";
+          // echo '<h1 style="text-align:center;">404 Page not found </h1>';
           break;
       }
     } else return;
