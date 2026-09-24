@@ -21,6 +21,22 @@ spl_autoload_register(function (string $className) {
 });
 
 
+// $sModel = new StudentModel;
+// $valiCTRL = new ValidationController;
+// $student = new stdClass;
+// $student->id = 10;
+
+// $password = $valiCTRL->hash("password");
+// $student->password = $password;
+// echo json_encode($student);
+// echo "<br>";
+
+// $student = $sModel->update($student);
+// if ($student) {
+//     echo json_encode($student);
+//     echo "<br>";
+// }
+// die();
 
 $userId = 0;
 

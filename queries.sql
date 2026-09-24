@@ -12,7 +12,7 @@ FOREIGN KEY(student_id) REFERENCES student(id) on DELETE CASCADE
 );
 
 
-
+-- photo table
 
 -- inser into photo table
 INSERT into photo (`title`,`student_id`,`filename`,`description`,`date_time`)
@@ -23,3 +23,20 @@ VALUES(
 "a lit candle",
 CURRENT_TIMESTAMP
 )
+
+
+-- student table 
+
+-- insert student 
+INSERT INTO student (first_name ,last_name ,email,password,description ,location,occupation ,isLogin)
+VALUES ("Ali" ,"Othman" ,"ali@gmail.com","password","CS Bs student @eg.edu", "KH,UM" , "CS Student" ,"false")
+
+-- update student
+update student 
+set password = "newpassword"
+WHERE id = 2
+
+-- delete student // sign out
+DELETE FROM `student` WHERE `student`.`id` = 5
+
+

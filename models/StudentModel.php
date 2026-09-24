@@ -84,6 +84,63 @@ class StudentModel extends Model
         return $isInserted;
     }
 
+    function update(object $student): ?object
+    {
+        // find student 
+        if ($oldData = $this->find($student->id)) {
+            $newData = new stdClass;
+            $newData->id = $oldData->id;
+            $newData->first_name = $student->first_name ?? $oldData->first_name;
+            $newData->last_name = $student->last_name ?? $oldData->last_name;
+            $newData->email = $student->email ?? $oldData->email;
+            $newData->description = $student->description ?? $oldData->description ?? "";
+            $newData->location = $student->location ?? $oldData->location ?? "";
+            $newData->password = $student->password ?? $oldData->password ?? "";
+            $newData->occupation = $student->occupation ?? $oldData->occupation ?? "";
+            $newData->isLogin = $student->isLogin ?? $oldData->isLogin ?? false;
+
+            try {
+                $connection = $this->getConnection();
+                $sql = "update student set last_name = '" . $newData->last_name . "', first_name = '" . $newData->first_name . "', password = '" . $newData->password . "' ,email = '"
+                    . $newData->email . "' ,description = '" . $newData->description . "' , occupation = '" . $newData->occupation . " ', location = '" . $newData->location . "',isLogin = " . $newData->isLogin .
+                    " where id = " . $newData->id . "";
+                $stmt = $connection->query($sql);
+                if ($stmt) {
+                    return $newData;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                return null;
+            }
+        }
+        // update data
+
+        return null;
+    }
+
+    function deleteStudent($id): bool
+    {
+        $isdeleted = false;
+
+        if ($id) {
+            try {
+                $connection = $this->getConnection();
+                $sql = "DELETE FROM `student` WHERE `student`.`id` = " . $id;
+                $stmt = $connection->query($sql);
+                if ($stmt) {
+                    $isdeleted = true;
+                    return $isdeleted;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                return $isdeleted;
+            }
+        }
+
+
+        return $isdeleted;
+    }
+
 
     function updateStateLogin($id)
     {
