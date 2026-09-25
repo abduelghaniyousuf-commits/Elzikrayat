@@ -1,5 +1,5 @@
 <?php
-
+$name = "Abduelghani";
 
 spl_autoload_register(function (string $className) {
 
@@ -92,11 +92,11 @@ Router::post("/register", function () {
     $stdAuthenticator = new AuthenticationController;
     // the result of sign up operation
     // the result is object contains:
-        //1- student object contains the data inserted before + a message shows:
-            // a- success if data was valid and inserted to data base
-            // b- database error if any DB error happens
-            // c- or validation errors 
-        // 2- status code explains the status of insertion operation
+    //1- student object contains the data inserted before + a message shows:
+    // a- success if data was valid and inserted to data base
+    // b- database error if any DB error happens
+    // c- or validation errors 
+    // 2- status code explains the status of insertion operation
     $resut = $stdAuthenticator->signUp((object)$_POST);
 
     // $userId = $signedUser->id;
