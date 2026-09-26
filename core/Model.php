@@ -29,13 +29,22 @@ abstract class Model
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    static function getByID($id): object
+    static function getByID($id): ?object
     {
         $connection = self::getConnection();
-        $sql = "select * from " . static::$table . " where id = " . $id;
+        $sql = "select * from " . static::$table . " where id = ?";
         $stmt = $connection->prepare($sql);
         $data = $stmt->execute([$id]);
-        return $data->fetch(PDO::FETCH_OBJ);
+        echo json_encode($stmt);
+        echo "<br>";
+
+        echo $data;
+        echo "<br>";
+
+        echo $data->fetch(PDO::FETCH_OBJ);
+        die();
+
+        return null;
     }
 
 

@@ -15,11 +15,14 @@ class PhotoController
     die();
   }
 
-  public function viewById(int $id)
+  public function viewById($id)
   {
     $pModel = new PhotoModel();
-    $data = $pModel::getByID($id);
-    if (isset($data)) {
+    $photo = $pModel::getByID($id);
+    // echo json_encode($photo);
+    // die();
+    if (isset($photo)) {
+      $this->data = $photo;
       $pView = new PhotoView($this->data);
       $pView->viewOne();
     }

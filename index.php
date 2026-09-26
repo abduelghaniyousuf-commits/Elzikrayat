@@ -1,6 +1,10 @@
 <?php
-$name = "Abduelghani";
-
+// spl_autoload_register
+// loads classes files dynamically
+// take a callback function as parameter 
+// the call back takes a string of the class name called in code
+// using standard bascal case to gain benefits of the class name returned by the call function 
+// to load the classes called
 spl_autoload_register(function (string $className) {
 
     $paths = [
@@ -36,7 +40,6 @@ spl_autoload_register(function (string $className) {
 //     echo "<br>";
 // }
 // die();
-
 $userId = 0;
 
 $std = new StudentModel();
@@ -48,6 +51,10 @@ $origin = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 //     echo "home/id is handled";
 // });
+Router::get("/", function () {
+    Router::redirect("login");
+});
+
 
 // landing page after login
 Router::get('/user/{id}', function ($matches) {
@@ -155,7 +162,25 @@ Router::get("/logout/{id}", function ($matches) {
     // echo $sModel->find($userId)->isLogin;
 
     // die();
+});
 
+Router::get("/photo/{id}", function ($matches) {
+    $photoId = $matches;
+    // echo json_encode($photoId);
+
+    if ($photoId) {
+        $pController = new PhotoController;
+
+        $photo = $pController->viewById($photoId);
+        $cConroller = new CommentCOntroller;
+        $cConroller->index();
+        // echo "from here";
+        // echo json_encode($photo);
+
+    } else {
+        http_response_code(504);
+        echo "<h>Server Error Photo not found</h1>";
+    }
 });
 
 
