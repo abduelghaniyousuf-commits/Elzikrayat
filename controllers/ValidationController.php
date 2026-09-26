@@ -51,7 +51,7 @@ class ValidationController
 
     if (!strlen($localPassword) >= 8) {
       $isValid = false;
-      $this->message = $this->message = "Password must be at least 8 digits length\n";
+      $this->message = $this->message + "Password must be at least 8 digits length\n";
     }
     return $isValid;
   }

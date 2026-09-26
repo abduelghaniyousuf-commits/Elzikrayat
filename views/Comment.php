@@ -13,7 +13,7 @@ class Comment
       <?php
       if ($data) {
         foreach ($data as $comment):
-          
+
       ?>
           <p style="text-align: left;" class="mx-2 px2 my-3">
             <?php echo htmlspecialchars($comment->comment); ?>
@@ -21,9 +21,6 @@ class Comment
 
 
       <?php
-
-
-
         endforeach;
       }
       ?>

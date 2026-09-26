@@ -91,7 +91,7 @@ Router::get("/register", function () {
 //  Post /register
 // takes user input from payload 
 // sanitizes and validates user input
-// returns the result os sign up operation
+// returns the result of sign up operation
 // redirects user to login page in successful sign up
 // continuing tomorrow inshAllah
 Router::post("/register", function () {
