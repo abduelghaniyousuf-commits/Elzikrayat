@@ -1,22 +1,22 @@
-##Project Name:
+## Project Name:
 Elzikrayat: Students Photo Sharing Application
-##Description:
+## Description:
 	Elzikrayat: 
     Web Application Designed to allow Students to share their memories and comment on the beautiful moments.
-##Technologies:
+## Technologies:
   •	Libraries
     o	Bootstrap
     o	jQuery
   •	Programming language
     o	PHP
-    HTML
+    o   HTML
     o	CSS
     o	JavaScript
   •	Deploying:
     o	Apache Server
   •	Web Architecture
     o	MVC Web Architecture
-  How to Run:
+ ## How to Run:
     •	Install XAMPP and Open control panel
     •	Enable MySQL server
     •	Navigate to htdocs folder create a folder named Elzikrayat or any thing
@@ -25,6 +25,6 @@ Elzikrayat: Students Photo Sharing Application
     •	On the CMD (when using CMD / Terminal when using VSCode) run “php -S localhost:80”
     •	Finally open any Web Browser and type in URL “localhost “ 
 
-Student Name
+# Student Name
 	Abduelghani Yousuf Ahmed Yousuf
 	IT-Semester 7
