@@ -1,21 +1,21 @@
 ## Project Name:
-Elzikrayat: Students Photo Sharing Application
+    Elzikrayat: Students Photo Sharing Application
 ## Description:
 	Elzikrayat: 
     Web Application Designed to allow Students to share their memories and comment on the beautiful moments.
 ## Technologies:
-  •	Libraries
-    o	Bootstrap
-    o	jQuery
-  •	Programming language
-    o	PHP
-    o   HTML
-    o	CSS
-    o	JavaScript
-  •	Deploying:
-    o	Apache Server
-  •	Web Architecture
-    o	MVC Web Architecture
+   •	Libraries
+	    o	Bootstrap
+	    o	jQuery
+   •	Programming language
+	    o	PHP
+	    o   HTML
+	    o	CSS
+	    o	JavaScript
+   •	Deploying:
+	    o	Apache Server
+   •	Web Architecture
+   		o	MVC Web Architecture
  ## How to Run:
     •	Install XAMPP and Open control panel
     •	Enable MySQL server
